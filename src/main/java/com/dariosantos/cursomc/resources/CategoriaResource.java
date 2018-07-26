@@ -14,7 +14,7 @@ import com.dariosantos.cursomc.domain.Categoria;
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
 
-	@GetMapping(value = "/listar")
+	@GetMapping()
 	public List<Categoria> listar() {
 
 		Categoria cat1 = new Categoria(1, "novo");
