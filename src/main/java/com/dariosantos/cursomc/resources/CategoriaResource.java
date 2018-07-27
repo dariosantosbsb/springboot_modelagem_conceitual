@@ -31,7 +31,7 @@ public class CategoriaResource {
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 
 		Categoria categoria = categoriaService.find(id);
-		return ResponseEntity.ok().body(categoria);
+		return ResponseEntity.ok().body(categoria.getNome());
 
 	}
 
