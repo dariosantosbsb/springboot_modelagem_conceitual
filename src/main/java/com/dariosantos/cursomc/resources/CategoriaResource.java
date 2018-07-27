@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dariosantos.cursomc.domain.Categoria;
 import com.dariosantos.cursomc.repositories.CategoriaRepository;
+import com.dariosantos.cursomc.resources.exception.ResourceExceptionHandler;
 import com.dariosantos.cursomc.services.CategoriaService;
+import com.dariosantos.cursomc.services.exceptions.ObjectNotFoundException;
+
+
 
 @RestController
 @RequestMapping(value = "/categorias")
-public class CategoriaResource {
+public class CategoriaResource{
 
 	@Autowired
 	private CategoriaService categoriaService;
@@ -28,11 +32,9 @@ public class CategoriaResource {
 
 	// <?> pode ser qualquer tipo
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<?> find(@PathVariable Integer id) {
-
+	public ResponseEntity<?> find(@PathVariable Integer id){
 		Categoria categoria = categoriaService.find(id);
-		return ResponseEntity.ok().body(categoria.getNome());
-
+		return ResponseEntity.ok().body(categoria);
 	}
 
 	@PostMapping()

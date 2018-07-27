@@ -11,7 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
-import org.jboss.logging.Message;
+
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Categoria implements Serializable{
@@ -20,6 +22,7 @@ public class Categoria implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)//IDENTITY banco H2
 	private Integer id;
@@ -27,6 +30,7 @@ public class Categoria implements Serializable{
 	@NotNull(message="não pode ser vazio")
 	private String nome;
 	
+	@JsonManagedReference //remove a busca ciclica entre as listas
 	@ManyToMany(mappedBy="categorias")
 	private List<Produto> produtos = new ArrayList<>();
 	
