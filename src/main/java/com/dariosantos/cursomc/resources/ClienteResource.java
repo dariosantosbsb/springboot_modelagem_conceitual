@@ -10,30 +10,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dariosantos.cursomc.domain.Categoria;
-import com.dariosantos.cursomc.repositories.CategoriaRepository;
-import com.dariosantos.cursomc.services.CategoriaService;
+import com.dariosantos.cursomc.domain.Cliente;
+import com.dariosantos.cursomc.repositories.ClienteRepository;
+import com.dariosantos.cursomc.services.ClienteService;
 
 @RestController
-@RequestMapping(value = "/categorias")
-public class CategoriaResource {
+@RequestMapping(value = "/clientes")
+public class ClienteResource {
 
 	@Autowired
-	private CategoriaService categoriaService;
+	private ClienteService clienteService;
 
 	@Autowired
-	private CategoriaRepository categoriaRepository;
+	private ClienteRepository clienteRepository;
 
 	// <?> pode ser qualquer tipo
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Categoria categoria = categoriaService.find(id);
+		Cliente categoria = clienteService.find(id);
 		return ResponseEntity.ok().body(categoria);
 	}
 
 	@PostMapping()
-	public ResponseEntity<?> create(@RequestBody Categoria categoria) {
-		categoriaRepository.save(categoria);
+	public ResponseEntity<?> create(@RequestBody Cliente categoria) {
+		clienteRepository.save(categoria);
 		return ResponseEntity.ok().body(categoria);
 	}
 
