@@ -15,9 +15,6 @@ public class ResourceExceptionHandler {
 	@ExceptionHandler(ObjectNotFoundException.class)//indicando que é tratador de execao da classe ObjectNotFoundException
 	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e){
 		
-		System.out.println("\n\n\n\n\n\n\n ################################### 123123123132 \n\n\n\n\n\n\n\n");
-		
-		System.out.println("\n\n-----------------------------------passou aqui--------------\n\n");
 		StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
 		System.out.println(err);
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
