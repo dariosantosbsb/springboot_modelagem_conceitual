@@ -11,10 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
-
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 public class Categoria implements Serializable{
 
@@ -30,7 +26,7 @@ public class Categoria implements Serializable{
 	@NotNull(message="não pode ser vazio")
 	private String nome;
 	
-	@JsonManagedReference //remove a busca ciclica entre as listas
+	//@JsonManagedReference //remove a busca ciclica entre as listas
 	@ManyToMany(mappedBy="categorias")
 	private List<Produto> produtos = new ArrayList<>();
 	
