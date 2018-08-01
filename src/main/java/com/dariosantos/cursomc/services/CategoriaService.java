@@ -17,13 +17,17 @@ public class CategoriaService {
 
 	public Categoria find(Integer id) {
 		Optional<Categoria> obj = categoriaRepository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id));
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id));
+	}
+
+	public Categoria insert(Categoria categoria) {
+		categoria.setId(null); // garante que vai inserir e não atualizar
+		return categoriaRepository.save(categoria);
 	}
 	
-	public Categoria insert(Categoria categoria) {
-		categoria.setId(null); //garante que vai inserir e não atualizar 
+	public Categoria update(Categoria categoria) {
+		find(categoria.getId()); // para aproveitar 
 		return categoriaRepository.save(categoria);
-	} 
+	}
 
 }
