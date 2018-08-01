@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.dariosantos.cursomc.services.exceptions.DataIntegrityException;
 import com.dariosantos.cursomc.services.exceptions.ObjectNotFoundException;
 
 
@@ -18,6 +19,15 @@ public class ResourceExceptionHandler {
 		System.out.println(err);
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 		
-	} 
+	}
+	
+	@ExceptionHandler(DataIntegrityException.class)//indicando que é tratador de execao da classe ObjectNotFoundException
+	public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException e){
+		
+		StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+		System.out.println(err);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+		
+	}
 	
 }
