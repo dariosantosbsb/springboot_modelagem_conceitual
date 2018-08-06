@@ -13,7 +13,6 @@ public class DataIntegrityException extends RuntimeException{
 	
 	public DataIntegrityException(String msg) {
 		super(msg);
-		//System.out.println("\n\n--------------ggg---------------------passou aqui--------------\n\n");
 	}
 	
 	public DataIntegrityException(Throwable cause) {

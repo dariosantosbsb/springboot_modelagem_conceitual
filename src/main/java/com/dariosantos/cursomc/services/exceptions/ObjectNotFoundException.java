@@ -13,7 +13,6 @@ public class ObjectNotFoundException extends RuntimeException{
 	
 	public ObjectNotFoundException(String msg) {
 		super(msg);
-		//System.out.println("\n\n--------------ggg---------------------passou aqui--------------\n\n");
 	}
 	
 	public ObjectNotFoundException(Throwable cause) {
