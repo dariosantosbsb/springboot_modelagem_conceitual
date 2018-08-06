@@ -2,6 +2,8 @@ package com.dariosantos.cursomc.dtos;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.dariosantos.cursomc.domain.Categoria;
 
 public class CategoriaDTO implements Serializable{
@@ -32,6 +34,7 @@ public class CategoriaDTO implements Serializable{
 		this.id = id;
 	}
 
+	@NotEmpty(message="campo obrigatório")
 	public String getNome() {
 		return nome;
 	}
