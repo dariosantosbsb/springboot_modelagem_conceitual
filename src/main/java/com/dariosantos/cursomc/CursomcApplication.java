@@ -8,20 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.dariosantos.cursomc.domain.Categoria;
-import com.dariosantos.cursomc.domain.Produto;
-import com.dariosantos.cursomc.domain.enums.EstadoPagamento;
-import com.dariosantos.cursomc.domain.enums.TipoCliente;
+import com.dariosantos.cursomc.domain.Cidade;
+import com.dariosantos.cursomc.domain.Cliente;
+import com.dariosantos.cursomc.domain.Endereco;
 import com.dariosantos.cursomc.domain.Estado;
 import com.dariosantos.cursomc.domain.ItemPedido;
 import com.dariosantos.cursomc.domain.Pagamento;
 import com.dariosantos.cursomc.domain.PagamentoComBoleto;
 import com.dariosantos.cursomc.domain.PagamentoComCartao;
 import com.dariosantos.cursomc.domain.Pedido;
-import com.dariosantos.cursomc.domain.Cidade;
-import com.dariosantos.cursomc.domain.Cliente;
-import com.dariosantos.cursomc.domain.Endereco;
+import com.dariosantos.cursomc.domain.Produto;
+import com.dariosantos.cursomc.domain.enums.EstadoPagamento;
+import com.dariosantos.cursomc.domain.enums.TipoCliente;
 import com.dariosantos.cursomc.repositories.CategoriaRepository;
 import com.dariosantos.cursomc.repositories.CidadeRepository;
 import com.dariosantos.cursomc.repositories.ClienteRepository;
@@ -61,6 +62,9 @@ public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -102,7 +106,7 @@ public class CursomcApplication implements CommandLineRunner {
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 
-		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "12345678912", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "12345678912", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("123"));
 
 		cli1.getTelefones().addAll(Arrays.asList("20232526", "85456933"));
 
