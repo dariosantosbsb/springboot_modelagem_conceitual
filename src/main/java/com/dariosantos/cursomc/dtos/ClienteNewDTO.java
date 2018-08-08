@@ -2,29 +2,55 @@ package com.dariosantos.cursomc.dtos;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.dariosantos.cursomc.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
+	@NotEmpty(message = "Campo obrigatório")
+	@Length(min = 5, max = 120)
 	private String nome;
+
+	@NotEmpty(message = "Campo obrigatório")
+	@Length(min = 10, max = 255)
+	@Email(message = "email inválido")
 	private String email;
+
+	@NotEmpty(message = "Campo obrigatório")
 	private String cpfOuCnpj;
+
 	private Integer tipo;
-	
+
+	@NotEmpty(message = "Campo obrigatório")
 	private String logradouro;
+
+	@NotEmpty(message = "Campo obrigatório")
 	private String numero;
+
 	private String complemento;
+
+	@NotEmpty(message = "Campo obrigatório")
 	private String bairro;
+
+	@NotEmpty(message = "Campo obrigatório")
 	private String cep;
-	
+
+	@NotEmpty(message = "Campo obrigatório")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
-	
+
 	private Integer cidadeId;
 
 	public ClienteNewDTO() {
-		
+
 	}
 
 	public String getNome() {
@@ -130,5 +156,5 @@ public class ClienteNewDTO implements Serializable {
 	public void setCidadeId(Integer cidadeId) {
 		this.cidadeId = cidadeId;
 	}
-		
+
 }
