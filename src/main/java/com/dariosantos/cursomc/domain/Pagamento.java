@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Pagamento implements Serializable { //abstract garante que pagamento nao sera instanciado
+public abstract class Pagamento implements Serializable { // abstract garante que pagamento nao sera instanciado
 
 	/**
 	 * 
@@ -38,7 +38,7 @@ public abstract class Pagamento implements Serializable { //abstract garante que
 	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
 		super();
 		this.id = id;
-		this.estado = estado.getCod();
+		this.estado = (estado == null) ? null : estado.getCod();
 		this.pedido = pedido;
 	}
 

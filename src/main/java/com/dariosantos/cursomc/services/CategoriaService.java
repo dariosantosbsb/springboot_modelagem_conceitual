@@ -26,7 +26,7 @@ public class CategoriaService {
 		Optional<Categoria> obj = categoriaRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id));
 	}
-	
+
 	public List<Categoria> findAll() {
 		return categoriaRepository.findAll();
 	}
@@ -37,8 +37,9 @@ public class CategoriaService {
 	}
 
 	public Categoria update(Categoria categoria) {
-		find(categoria.getId()); // para aproveitar
-		return categoriaRepository.save(categoria);
+		Categoria newCategoria = find(categoria.getId()); // para aproveitar
+		updateData(newCategoria, categoria);
+		return categoriaRepository.save(newCategoria);
 	}
 
 	public void delete(Integer id) {
@@ -49,15 +50,17 @@ public class CategoriaService {
 			throw new DataIntegrityException("Não é possível excluir uma categoria que contem produtos");
 		}
 	}
-	
-	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),
-				orderBy);
+
+	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return categoriaRepository.findAll(pageRequest);
 	}
-	
+
 	public Categoria fromDTO(CategoriaDTO categoriaDTO) {
 		return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
 	}
 
+	private void updateData(Categoria newCategoria, Categoria categoria) {
+		newCategoria.setNome(categoria.getNome());
+	}
 }

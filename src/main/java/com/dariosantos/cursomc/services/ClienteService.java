@@ -16,7 +16,6 @@ import com.dariosantos.cursomc.repositories.ClienteRepository;
 import com.dariosantos.cursomc.services.exceptions.DataIntegrityException;
 import com.dariosantos.cursomc.services.exceptions.ObjectNotFoundException;
 
-import ch.qos.logback.core.net.server.Client;
 
 @Service
 public class ClienteService {
@@ -65,7 +64,7 @@ public class ClienteService {
 	
 	private void updateData(Cliente newCliente, Cliente cliente) {
 		newCliente.setNome(cliente.getNome());
-		newCliente.setEmail(cliente.getNome());
+		newCliente.setEmail(cliente.getEmail());
 	}
 
 }

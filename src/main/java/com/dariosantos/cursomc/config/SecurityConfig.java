@@ -24,9 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private Environment env;
 
 	// vetorizando uma string para dar permissões de acesso
-	private static final String[] PUCLIC_MATCHES = { "/h2-console/**", "/clientes/**" };
+	private static final String[] PUCLIC_MATCHES = { "/h2-console/**", "/clientes/**", "/categorias/**" };
 
-	private static final String[] PUCLIC_MATCHES_GET = { "/categorias/**" };
+	private static final String[] PUCLIC_MATCHES_GET = { "/categoriasTeste/**" };
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -36,8 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			http.headers().frameOptions().disable();
 		}
 
-		
-		//http.cors().and().csrf().disable(); 
+		//http.cors().and().csrf().disable();
 		http.csrf().disable();
 		http.authorizeRequests().antMatchers(HttpMethod.GET, PUCLIC_MATCHES_GET).permitAll().antMatchers(PUCLIC_MATCHES)
 				.permitAll().anyRequest().authenticated();
@@ -52,9 +51,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 		return source;
 	}
-	
+
 	@Bean
-	public BCryptPasswordEncoder bCyptPasswordEncoder(){
+	public BCryptPasswordEncoder bCyptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
