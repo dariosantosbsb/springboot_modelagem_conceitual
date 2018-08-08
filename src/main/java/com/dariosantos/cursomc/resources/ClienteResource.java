@@ -1,5 +1,6 @@
 package com.dariosantos.cursomc.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,17 +12,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 //import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dariosantos.cursomc.domain.Cliente;
 import com.dariosantos.cursomc.dtos.ClienteDTO;
-//import com.dariosantos.cursomc.dtos.ClienteDTO;
-import com.dariosantos.cursomc.repositories.ClienteRepository;
+import com.dariosantos.cursomc.dtos.ClienteNewDTO;
 import com.dariosantos.cursomc.services.ClienteService;
 
 @RestController
@@ -30,9 +32,6 @@ public class ClienteResource {
 
 	@Autowired
 	private ClienteService clienteService;
-
-	@Autowired
-	private ClienteRepository clienteRepository;
 
 	// <?> pode ser qualquer tipo
 	@GetMapping(value = "/{id}")
@@ -59,14 +58,14 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(clienteDto);
 	}
 
-	/*@PostMapping()
-	public ResponseEntity<Void> create(@Valid @RequestBody ClienteDTO clienteDTO) {// @RequestBody converte json em obj java.
-		Cliente cliente = clienteService.fromDTO(clienteDTO);
+	@PostMapping()
+	public ResponseEntity<Void> create(@Valid @RequestBody ClienteNewDTO clienteNewDTO) {// @RequestBody converte json em obj java.
+		Cliente cliente = clienteService.fromDTO(clienteNewDTO);
 		clienteService.insert(cliente);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId())
 				.toUri();
 		return ResponseEntity.created(uri).build(); // created retorna o cod 201
-	}*/
+	}
 
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO clienteDto, @PathVariable Integer id) {
