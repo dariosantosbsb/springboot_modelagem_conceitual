@@ -2,6 +2,7 @@ package com.dariosantos.cursomc.dtos;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -19,8 +20,13 @@ public class ClienteNewDTO implements Serializable {
 	private String nome;
 
 	@NotEmpty(message = "Campo obrigatório")
+	@Length(min = 5, max = 20)
+	private String senha;
+
+	@NotEmpty(message = "Campo obrigatório")
 	@Length(min = 10, max = 255)
 	@Email(message = "email inválido")
+	@Column(unique = true)
 	private String email;
 
 	@NotEmpty(message = "Campo obrigatório")
@@ -155,6 +161,14 @@ public class ClienteNewDTO implements Serializable {
 
 	public void setCidadeId(Integer cidadeId) {
 		this.cidadeId = cidadeId;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 }
