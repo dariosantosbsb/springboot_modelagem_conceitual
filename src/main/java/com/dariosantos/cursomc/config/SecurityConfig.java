@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private Environment env;
 
 	// vetorizando uma string para dar permissões de acesso
-	private static final String[] PUCLIC_MATCHES = { "/h2-console/**", "/clientes/**", "/categorias/**", "/pedidos/**" };
+	private static final String[] PUCLIC_MATCHES = { "/h2-console/**", "/clientes/**", "/categorias/**", "/pedidos/**" , "/produtos/**" };
 
 	private static final String[] PUCLIC_MATCHES_GET = { "/categoriasTeste/**" };
 
