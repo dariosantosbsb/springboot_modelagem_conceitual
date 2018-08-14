@@ -53,7 +53,7 @@ public class PedidoService {
 		
 		for(ItemPedido ip : pedido.getItens()) {
 			ip.setDesconto(0.10);
-			ip.setPreco(ip.getProduto().getPreco());
+			ip.setPreco(20.20);
 			ip.setPedido(pedido);
 		}
 		itemPedidoRepository.saveAll(pedido.getItens());
