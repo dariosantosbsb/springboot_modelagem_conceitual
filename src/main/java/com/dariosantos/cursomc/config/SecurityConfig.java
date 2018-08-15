@@ -12,14 +12,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.dariosantos.cursomc.security.JWTAuthenticationFilter;
-import com.dariosantos.cursomc.security.utils.JWTUtil;
+import com.dariosantos.cursomc.security.JWTAuthorizationFilter;
+import com.dariosantos.cursomc.security.JWTUtil;
+import com.dariosantos.cursomc.services.impl.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -29,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private Environment env;
 	
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private UserDetailsServiceImpl userDetailsServiceImpl;
 	
 	@Autowired
 	private JWTUtil jwtUtil;
@@ -52,12 +53,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers(HttpMethod.GET, PUCLIC_MATCHES_GET).permitAll().antMatchers(PUCLIC_MATCHES)
 				.permitAll().anyRequest().authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsServiceImpl));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 	
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception{
-		auth.userDetailsService(userDetailsService).passwordEncoder(bCyptPasswordEncoder());
+		auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(bCyptPasswordEncoder());
 	}
 
 	// permitindo o acesso aos endpoints por multiplas fontes
